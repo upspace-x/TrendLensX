@@ -1,7 +1,14 @@
+# *
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /api/
 
+# *
+User-agent: *
+Disallow: /admin
+Disallow: /api
+
+# Host
+Host: https://trendlensx.com
+
+# Sitemaps
 Sitemap: https://trendlensx.com/sitemap.xml
-
