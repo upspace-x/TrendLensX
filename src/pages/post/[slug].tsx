@@ -2,21 +2,23 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import SEOHead from '@/components/SEO/SEOHead';
 import AuthorCard from '@/components/Cards/AuthorCard';
 import ShareButtons from '@/components/Social/ShareButtons';
 import CommentSection from '@/components/Comments/CommentSection';
 import AdBanner from '@/components/Ads/AdBanner';
-import { posts } from '@/data/mockData';
+import { getAllPosts, getPostBySlug } from '@/lib/mdxPosts';
 import { Post } from '@/types';
 import { formatDate, getCategoryColor } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
 
 interface PostPageProps {
   post: Post;
+  mdxSource: MDXRemoteSerializeResult;
 }
 
-export default function PostPage({ post }: PostPageProps) {
+export default function PostPage({ post, mdxSource }: PostPageProps) {
   const postUrl = `${SITE_CONFIG.url}/post/${post.slug}`;
 
   return (
@@ -85,10 +87,9 @@ export default function PostPage({ post }: PostPageProps) {
 
             <AdBanner slot="post-top" className="mb-8" />
 
-            <div
-              className="prose prose-lg max-w-none mb-8"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="prose prose-lg max-w-none mb-8">
+              <MDXRemote {...mdxSource} />
+            </div>
 
             <div className="flex flex-wrap gap-2 mb-8">
               {post.tags.map((tag) => (
@@ -118,6 +119,7 @@ export default function PostPage({ post }: PostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = getAllPosts();
   const paths = posts.map((post) => ({
     params: { slug: post.slug },
   }));
@@ -126,14 +128,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { serialize } = await import('next-mdx-remote/serialize');
   const slug = params?.slug as string;
-  const post = posts.find((p) => p.slug === slug);
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return { notFound: true };
   }
 
+  const mdxSource = await serialize(post.content);
+
   return {
-    props: { post: JSON.parse(JSON.stringify(post)) },
+    props: { 
+      post: JSON.parse(JSON.stringify(post)), 
+      mdxSource 
+    },
   };
 };

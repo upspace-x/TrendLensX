@@ -2,7 +2,8 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import SEOHead from '@/components/SEO/SEOHead';
 import PostCard from '@/components/Cards/PostCard';
 import Newsletter from '@/components/Sections/Newsletter';
-import { categories, getPostsByCategory } from '@/data/mockData';
+import { categories } from '@/data/mockData';
+import { getPostsByCategory } from '@/lib/mdxPosts';
 import { Category, Post } from '@/types';
 import { CATEGORIES } from '@/lib/constants';
 
