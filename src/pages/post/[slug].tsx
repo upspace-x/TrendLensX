@@ -68,7 +68,7 @@ export default function PostPage({ post, mdxSource }: PostPageProps) {
                 </span>
                 <span className="flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
-                  {post.readTime} min read
+                  {post.readingTime}
                 </span>
               </div>
 

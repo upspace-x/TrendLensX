@@ -35,6 +35,8 @@ export interface Post {
   category: Category;
   tags: string[];
   readTime: number;
+  readingTime?: string;
+  wordCount?: number;
   featured?: boolean;
 }
 

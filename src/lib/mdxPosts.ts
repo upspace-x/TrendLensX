@@ -46,6 +46,19 @@ function parseMDXFile(filename: string): { data: PostFrontMatter; content: strin
   return { data: data as PostFrontMatter, content };
 }
 
+function extractTextFromMDX(mdx: string): string {
+  let s = mdx;
+  s = s.replace(/```[\s\S]*?```/g, ' ');
+  s = s.replace(/`[^`]*`/g, ' ');
+  s = s.replace(/<[^>]*>/g, ' ');
+  s = s.replace(/!\[[^\]]*\]\([^)]*\)/g, ' ');
+  s = s.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
+  s = s.replace(/[#>*-]{1,3}/g, ' ');
+  s = s.replace(/[\*\_\~\=\<\{\}\[\]\(\)\+\.,]/g, ' ');
+  s = s.replace(/\s+/g, ' ').trim();
+  return s;
+}
+
 export function getAllPosts(): Post[] {
   const mdxFiles = getMDXFiles();
   const posts = mdxFiles
@@ -53,7 +66,11 @@ export function getAllPosts(): Post[] {
       const { data, content } = parseMDXFile(file);
       const author = getAuthorByName(data.author);
       const category = getCategoryBySlug(data.category);
-      const readTime = calculateReadTime(content);
+      const cleaned = extractTextFromMDX(content);
+      const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;
+      const readTimeNum = Math.max(1, Math.ceil(wordCount / 200));
+      const readingTime = `${readTimeNum} min read`;
+      const readTime = readTimeNum;
       
       return {
         id: data.slug,
@@ -67,6 +84,8 @@ export function getAllPosts(): Post[] {
         category,
         tags: [],
         readTime,
+        readingTime,
+        wordCount,
         featured: false,
       } as Post;
     })
@@ -89,7 +108,11 @@ export function getPostBySlug(slug: string): Post | null {
   const { data, content } = parseMDXFile(filename);
   const author = getAuthorByName(data.author);
   const category = getCategoryBySlug(data.category);
-  const readTime = calculateReadTime(content);
+  const cleaned = extractTextFromMDX(content);
+  const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;
+  const readTimeNum = Math.max(1, Math.ceil(wordCount / 200));
+  const readingTime = `${readTimeNum} min read`;
+  const readTime = readTimeNum;
 
   return {
     id: data.slug,
@@ -103,6 +126,8 @@ export function getPostBySlug(slug: string): Post | null {
     category,
     tags: [],
     readTime,
+    readingTime,
+    wordCount,
     featured: false,
   } as Post;
 }
