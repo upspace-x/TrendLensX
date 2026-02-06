@@ -3,14 +3,18 @@ import Newsletter from '@/components/Sections/Newsletter';
 import PostCard from '@/components/Cards/PostCard';
 import CategoryCard from '@/components/Cards/CategoryCard';
 import SEOHead from '@/components/SEO/SEOHead';
-import { posts, categories, getPostsByCategory } from '@/data/mockData';
+import { categories, getPostsByCategory } from '@/data/mockData';
+import { getAllPosts, getFeaturedPosts } from '@/lib/mdxPosts';
 import { SITE_CONFIG } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
-  const featuredPosts = posts.filter(p => p.featured);
-  const latestPosts = posts.slice(0, 6);
+  const featuredPosts = getFeaturedPosts(4);
+  const latestPosts = getAllPosts().slice(0, 6);
+  
+  // Fallback gracefully if no featured posts exist
+  const hasFeaturedPosts = featuredPosts.length > 0;
 
   return (
     <>
@@ -22,18 +26,20 @@ export default function Home() {
       
       <Hero />
 
-      <section className="py-16 bg-white">
-        <div className="container-custom">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="section-heading">Featured Stories</h2>
+      {hasFeaturedPosts && (
+        <section className="py-16 bg-white">
+          <div className="container-custom">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="section-heading">Featured Stories</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {featuredPosts.slice(0, 2).map((post) => (
+                <PostCard key={post.id} post={post} featured />
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {featuredPosts.slice(0, 2).map((post) => (
-              <PostCard key={post.id} post={post} featured />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-16 bg-gray-50">
         <div className="container-custom">

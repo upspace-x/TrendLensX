@@ -15,6 +15,8 @@ interface PostFrontMatter {
   author: string;
   date: string;
   featuredImage?: string;
+  tags?: string[];
+  featured?: boolean;
 }
 
 function getAuthorByName(authorName: string): Author {
@@ -82,11 +84,11 @@ export function getAllPosts(): Post[] {
         publishedAt: new Date(data.date).toISOString(),
         author,
         category,
-        tags: [],
+        tags: data.tags || [],
         readTime,
         readingTime,
         wordCount,
-        featured: false,
+        featured: data.featured || false,
       } as Post;
     })
     .sort(
@@ -124,12 +126,18 @@ export function getPostBySlug(slug: string): Post | null {
     publishedAt: new Date(data.date).toISOString(),
     author,
     category,
-    tags: [],
+    tags: data.tags || [],
     readTime,
     readingTime,
     wordCount,
-    featured: false,
+    featured: data.featured || false,
   } as Post;
+}
+
+export function getFeaturedPosts(limit: number = 4): Post[] {
+  return getAllPosts()
+    .filter((post) => post.featured)
+    .slice(0, limit);
 }
 
 export function getPostsByCategory(categorySlug: string): Post[] {
