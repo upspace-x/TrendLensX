@@ -3,7 +3,6 @@ import path from 'path';
 import matter from 'gray-matter';
 import { Post, Author, Category } from '@/types';
 import { authors, categories } from '@/data/mockData';
-import { calculateReadTime } from './utils';
 
 const postsDirectory = path.join(process.cwd(), 'content', 'posts');
 

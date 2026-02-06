@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import Hero from '@/components/Sections/Hero';
 import Newsletter from '@/components/Sections/Newsletter';
 import PostCard from '@/components/Cards/PostCard';
@@ -8,10 +9,14 @@ import { getAllPosts, getFeaturedPosts } from '@/lib/mdxPosts';
 import { SITE_CONFIG } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { Post } from '@/types';
 
-export default function Home() {
-  const featuredPosts = getFeaturedPosts(4);
-  const latestPosts = getAllPosts().slice(0, 6);
+interface HomeProps {
+  featuredPosts: Post[];
+  latestPosts: Post[];
+}
+
+export default function Home({ featuredPosts, latestPosts }: HomeProps) {
   
   // Fallback gracefully if no featured posts exist
   const hasFeaturedPosts = featuredPosts.length > 0;
@@ -76,3 +81,16 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const featuredPosts = getFeaturedPosts(4);
+  const latestPosts = getAllPosts().slice(0, 6);
+
+  return {
+    props: {
+      featuredPosts: JSON.parse(JSON.stringify(featuredPosts)),
+      latestPosts: JSON.parse(JSON.stringify(latestPosts)),
+    },
+    revalidate: 3600, // Revalidate every hour
+  };
+};
