@@ -5,12 +5,16 @@ export interface Author {
   bio: string;
   avatar: string;
   email?: string;
+  // keep the existing `social` shape for backwards compatibility
   social: {
     twitter?: string;
     linkedin?: string;
     github?: string;
     website?: string;
   };
+  // new optional fields for richer author profiles
+  role?: string;
+  socials?: Record<string, string>;
 }
 
 export interface Category {

@@ -51,7 +51,33 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/emilyrodriguez',
     },
   },
+  {
+    id: 'maruf-quadri',
+    name: 'Quadri O. Maruf',
+    slug: 'maruf-quadri',
+    role: 'Founder & Editor-in-Chief',
+    bio: "Quadri O. Maruf is the Founder and Editor-in-Chief of TrendLensX. He writes about technology, education, global trends, and digital innovation, focusing on clarity, impact, and real-world relevance.",
+    avatar: '/images/authors/placeholder.png',
+    email: 'quadri@trendlensx.com',
+    social: {
+      twitter: 'https://x.com/marufquadri',
+      linkedin: 'https://linkedin.com/in/marufquadri',
+      website: 'https://trendlensx.vercel.app',
+    },
+    socials: {
+      twitter: 'https://x.com/marufquadri',
+      linkedin: 'https://linkedin.com/in/marufquadri',
+      website: 'https://trendlensx.vercel.app',
+    },
+  },
 ];
+
+export const authorMap: Record<string, Author> = authors.reduce((map, a) => {
+  map[a.id] = a;
+  map[a.slug] = a;
+  map[a.name.toLowerCase()] = a;
+  return map;
+}, {} as Record<string, Author>);
 
 export const posts: Post[] = [
   {

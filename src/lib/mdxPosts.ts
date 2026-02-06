@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { Post, Author, Category } from '@/types';
-import { authors, categories } from '@/data/mockData';
+import { authors, categories, authorMap } from '@/data/mockData';
 
 const postsDirectory = path.join(process.cwd(), 'content', 'posts');
 
@@ -11,21 +11,35 @@ interface PostFrontMatter {
   slug: string;
   category: string;
   excerpt: string;
-  author: string;
+  author?: string;
   date: string;
   featuredImage?: string;
   tags?: string[];
   featured?: boolean;
 }
 
-function getAuthorByName(authorName: string): Author {
-  const author = authors.find(
-    (a) => a.name.toLowerCase() === authorName.toLowerCase()
-  );
-  if (!author) {
-    throw new Error(`Author not found: ${authorName}`);
-  }
-  return author;
+function resolveAuthor(identifier?: string): Author {
+  // fallback author object (safe defaults)
+  const fallback: Author = {
+    id: 'unknown',
+    name: 'Guest Author',
+    slug: 'guest-author',
+    bio: '',
+    avatar: '/images/authors/placeholder.png',
+    social: {},
+  } as Author;
+
+  if (!identifier) return fallback;
+
+  // try direct map (id, slug, or lowercased name)
+  const direct = authorMap[identifier] || authorMap[identifier.toLowerCase()];
+  if (direct) return direct;
+
+  // try find by name (case-insensitive)
+  const byName = authors.find((a) => a.name.toLowerCase() === identifier.toLowerCase());
+  if (byName) return byName;
+
+  return fallback;
 }
 
 function getCategoryBySlug(slug: string): Category {
@@ -65,7 +79,7 @@ export function getAllPosts(): Post[] {
   const posts = mdxFiles
     .map((file) => {
       const { data, content } = parseMDXFile(file);
-      const author = getAuthorByName(data.author);
+      const author = resolveAuthor(data.author);
       const category = getCategoryBySlug(data.category);
       const cleaned = extractTextFromMDX(content);
       const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;
@@ -107,7 +121,7 @@ export function getPostBySlug(slug: string): Post | null {
   }
 
   const { data, content } = parseMDXFile(filename);
-  const author = getAuthorByName(data.author);
+  const author = resolveAuthor(data.author);
   const category = getCategoryBySlug(data.category);
   const cleaned = extractTextFromMDX(content);
   const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;

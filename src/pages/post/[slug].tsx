@@ -54,8 +54,8 @@ export default function PostPage({ post, mdxSource }: PostPageProps) {
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
                 <div className="flex items-center space-x-2">
                   <Image
-                    src={post.author.avatar}
-                    alt={post.author.name}
+                    src={post.author.avatar || '/images/authors/placeholder.png'}
+                    alt={post.author.name || 'Author'}
                     width={40}
                     height={40}
                     className="rounded-full"

@@ -77,8 +77,8 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-2">
             <Image
-              src={post.author.avatar}
-              alt={post.author.name}
+              src={post.author.avatar || '/images/authors/placeholder.png'}
+              alt={post.author.name || 'Author'}
               width={24}
               height={24}
               className="rounded-full"
