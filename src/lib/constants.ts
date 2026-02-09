@@ -3,8 +3,9 @@ export const SITE_CONFIG = {
   tagline: 'Your Lens to Trending Topics',
   description: 'Discover the latest trends in News, Finance, Technology, Education, Sports, Lifestyle, Jobs, and Scholarships.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://trendlensx.com',
-  logo: '/images/logo.svg',
+  logo: '/logo1.png',
   favicon: '/favicon.ico',
+  ogImage: '/logo1.png',
   social: {
     twitter: 'https://twitter.com/trendlensx',
     facebook: 'https://facebook.com/trendlensx',

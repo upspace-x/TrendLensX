@@ -8,15 +8,17 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: string;
   noIndex?: boolean;
+  twitterHandle?: string;
 }
 
 export default function SEOHead({
   title,
   description = SITE_CONFIG.description,
   canonical,
-  ogImage = '/images/og-default.png',
+  ogImage = SITE_CONFIG.ogImage || '/logo1.png',
   ogType = 'website',
   noIndex = false,
+  twitterHandle = '@trendlensx',
 }: SEOHeadProps) {
   const fullTitle = `${title} | ${SITE_CONFIG.name}`;
   const siteUrl = SITE_CONFIG.url;
@@ -44,8 +46,8 @@ export default function SEOHead({
         ],
       }}
       twitter={{
-        handle: '@trendlensx',
-        site: '@trendlensx',
+        handle: twitterHandle,
+        site: twitterHandle,
         cardType: 'summary_large_image',
       }}
     />
