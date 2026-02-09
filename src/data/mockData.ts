@@ -17,6 +17,25 @@ const getCategory = (slug: string): Category => {
 
 export const authors: Author[] = [
   {
+    id: 'maruf-quadri',
+    name: 'Quadri O. Maruf',
+    slug: 'maruf-quadri',
+    role: 'Founder & Editor-in-Chief',
+    bio: 'Quadri O. Maruf is the founder of TrendLensX, delivering clear insights on technology, global affairs, and emerging trends shaping the future.',
+    avatar: '/images/authors/placeholder.png',
+    email: 'quadri@trendlensx.com',
+    social: {
+      twitter: 'https://x.com/marufquadri',
+      linkedin: 'https://linkedin.com/in/marufquadri',
+      website: 'https://trendlensx.vercel.app',
+    },
+    socials: {
+      twitter: 'https://x.com/marufquadri',
+      linkedin: 'https://linkedin.com/in/marufquadri',
+      website: 'https://trendlensx.vercel.app',
+    },
+  },
+  {
     id: '1',
     name: 'Sarah Johnson',
     slug: 'sarah-johnson',
@@ -51,25 +70,6 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/emilyrodriguez',
     },
   },
-  {
-    id: 'maruf-quadri',
-    name: 'Quadri O. Maruf',
-    slug: 'maruf-quadri',
-    role: 'Founder & Editor-in-Chief',
-    bio: "Quadri O. Maruf is the Founder and Editor-in-Chief of TrendLensX. He writes about technology, education, global trends, and digital innovation, focusing on clarity, impact, and real-world relevance.",
-    avatar: '/images/authors/placeholder.png',
-    email: 'quadri@trendlensx.com',
-    social: {
-      twitter: 'https://x.com/marufquadri',
-      linkedin: 'https://linkedin.com/in/marufquadri',
-      website: 'https://trendlensx.vercel.app',
-    },
-    socials: {
-      twitter: 'https://x.com/marufquadri',
-      linkedin: 'https://linkedin.com/in/marufquadri',
-      website: 'https://trendlensx.vercel.app',
-    },
-  },
 ];
 
 export const authorMap: Record<string, Author> = authors.reduce((map, a) => {
@@ -97,7 +97,7 @@ export const posts: Post[] = [
     <p>As we look ahead, the integration of AI into everyday applications will only accelerate, bringing both opportunities and challenges that society must address.</p>`,
     coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop',
     publishedAt: '2024-01-15T10:00:00Z',
-    author: authors[0],
+    author: authors[1],
     category: getCategory('technology'),
     tags: ['AI', 'Technology', 'Innovation', 'Future'],
     readTime: 5,
@@ -118,7 +118,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop',
     publishedAt: '2024-01-14T09:00:00Z',
-    author: authors[1],
+    author: authors[2],
     category: getCategory('finance'),
     tags: ['Finance', 'Markets', 'Economy', 'Investment'],
     readTime: 4,
@@ -140,7 +140,7 @@ export const posts: Post[] = [
     </ol>`,
     coverImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop',
     publishedAt: '2024-01-13T11:00:00Z',
-    author: authors[2],
+    author: authors[3],
     category: getCategory('scholarships'),
     tags: ['Scholarships', 'Education', 'Study Abroad', 'Funding'],
     readTime: 7,
@@ -162,7 +162,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop',
     publishedAt: '2024-01-12T14:00:00Z',
-    author: authors[0],
+    author: authors[1],
     category: getCategory('jobs'),
     tags: ['Jobs', 'Remote Work', 'Tech', 'Career'],
     readTime: 5,
@@ -182,7 +182,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=800&h=400&fit=crop',
     publishedAt: '2024-01-11T08:00:00Z',
-    author: authors[1],
+    author: authors[2],
     category: getCategory('news'),
     tags: ['News', 'Climate', 'Environment', 'Politics'],
     readTime: 4,
@@ -196,9 +196,9 @@ export const posts: Post[] = [
     content: `<p>The championship finals are here, and sports fans are in for an exciting weekend. Here's everything you need to know about the upcoming matches.</p>
     <h2>Key Matchups</h2>
     <p>The competition promises intense action with top athletes competing for glory.</p>`,
-    coverImage: 'https://images.unsplash.com/photo-1461896836934- voices-of-the-champions?w=800&h=400&fit=crop',
+    coverImage: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop',
     publishedAt: '2024-01-10T16:00:00Z',
-    author: authors[2],
+    author: authors[3],
     category: getCategory('sports'),
     tags: ['Sports', 'Championship', 'Finals', 'Competition'],
     readTime: 3,
