@@ -22,7 +22,7 @@ export const authors: Author[] = [
     slug: 'maruf-quadri',
     role: 'Founder & Editor-in-Chief',
     bio: 'Quadri O. Maruf is the founder of TrendLensX, delivering clear insights on technology, global affairs, and emerging trends shaping the future.',
-    avatar: '/images/authors/placeholder.png',
+    avatar: '/images/authors/maruf-quadri.png',
     email: 'quadri@trendlensx.com',
     social: {
       twitter: 'https://x.com/marufquadri',
