@@ -12,7 +12,7 @@ export default function AuthorCard({ author, showBio = true }: AuthorCardProps) 
   return (
     <div className="card p-6 text-center">
       <Image
-        src={author.avatar || '/images/authors/placeholder.png'}
+        src={author.avatar || '/images/authors/maruf-quadri.png'}
         alt={author.name}
         width={80}
         height={80}
