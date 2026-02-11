@@ -12,20 +12,20 @@ export default function Header() {
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center space-x-2">
+          
+          {/* Logo Only (Text Removed) */}
+          <Link href="/" className="flex items-center">
             <Image
               src={SITE_CONFIG.logo}
               alt={SITE_CONFIG.name}
-              width={40}
-              height={40}
+              width={170}
+              height={50}
               className="h-10 w-auto"
               priority
             />
-            <span className="font-heading font-bold text-xl text-gray-900">
-              {SITE_CONFIG.name}
-            </span>
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {NAVIGATION.main.map((item) => (
               <div key={item.name} className="relative">
@@ -65,6 +65,7 @@ export default function Header() {
             ))}
           </div>
 
+          {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               href="/search"
@@ -77,14 +78,20 @@ export default function Header() {
             </Link>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t">
             {NAVIGATION.main.map((item) => (
@@ -121,4 +128,4 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+          }
