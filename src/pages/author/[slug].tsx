@@ -36,7 +36,7 @@ export default function AuthorPage({ author, posts }: AuthorPageProps) {
             {/* Author Header */}
             <div className="mb-8 text-center">
               <Image
-                src={author.avatar || '/images/authors/placeholder.png'}
+                src={author.avatar || '/images/authors/maruf-quadri.png'}
                 alt={author.name || 'Author'}
                 width={120}
                 height={120}
