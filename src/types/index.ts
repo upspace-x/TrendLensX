@@ -1,22 +1,3 @@
-export interface Author {
-  id: string;
-  name: string;
-  slug: string;
-  bio: string;
-  avatar: string;
-  email?: string;
-  // keep the existing `social` shape for backwards compatibility
-  social: {
-    twitter?: string;
-    linkedin?: string;
-    github?: string;
-    website?: string;
-  };
-  // new optional fields for richer author profiles
-  role?: string;
-  socials?: Record<string, string>;
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -24,6 +5,24 @@ export interface Category {
   description: string;
   color: string;
   icon?: string;
+}
+
+export interface Author {
+  id: string;
+  name: string;
+  slug: string;
+  role?: string;
+  bio: string;
+  avatar: string;
+  email?: string;
+  social?: {
+    twitter?: string;
+    linkedin?: string;
+    facebook?: string;
+    instagram?: string;
+    website?: string;
+  };
+  isPrimary?: boolean;
 }
 
 export interface Post {
@@ -35,7 +34,7 @@ export interface Post {
   coverImage: string;
   publishedAt: string;
   updatedAt?: string;
-  author: Author;
+  authorId: string;
   category: Category;
   tags: string[];
   readTime: number;

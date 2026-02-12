@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { Linkedin, Twitter, Globe } from 'lucide-react';
 import SEOHead from '@/components/SEO/SEOHead';
 import PostCard from '@/components/Cards/PostCard';
-import { authors, posts as mockPosts, authorMap } from '@/data/mockData';
+import { posts as mockPosts } from '@/data/mockData';
+import { authors } from '@/data/authors';
 import { getAllPosts } from '@/lib/mdxPosts';
 import { Author, Post } from '@/types';
 
@@ -14,14 +15,9 @@ interface AuthorPageProps {
 }
 
 export default function AuthorPage({ author, posts }: AuthorPageProps) {
-  // Get social links from either socials (new) or social (legacy) field
-  const getSocialLink = (platform: string) => {
-    return author.socials?.[platform] || author.social?.[platform as keyof typeof author.social];
-  };
-
-  const twitter = getSocialLink('twitter');
-  const linkedin = getSocialLink('linkedin');
-  const website = getSocialLink('website');
+  const twitter = author.social?.twitter;
+  const linkedin = author.social?.linkedin;
+  const website = author.social?.website;
 
   return (
     <>
@@ -36,8 +32,8 @@ export default function AuthorPage({ author, posts }: AuthorPageProps) {
             {/* Author Header */}
             <div className="mb-8 text-center">
               <Image
-                src={author.avatar || '/images/authors/maruf-quadri.png'}
-                alt={author.name || 'Author'}
+                src={author.avatar}
+                alt={author.name}
                 width={120}
                 height={120}
                 className="rounded-full mx-auto mb-4 object-cover"
@@ -117,7 +113,6 @@ export default function AuthorPage({ author, posts }: AuthorPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Generate static paths for all authors in the normalized authorMap
   const paths = authors.map((author) => ({
     params: { slug: author.slug },
   }));
@@ -130,39 +125,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-
-  // Look up author using the normalized authorMap (supports ID, slug, or name)
-  const author = authorMap[slug];
+  const author = authors.find(a => a.slug === slug);
 
   if (!author) {
     return { notFound: true };
   }
 
-  // Combine MDX posts and mock data posts
   const mdxPosts = getAllPosts();
   const allPosts: Post[] = [...mdxPosts, ...mockPosts];
 
-  // Filter posts by matching author ID (most efficient single-key comparison)
   const postsByAuthor = allPosts
-    .filter((post) => post.author?.id === author.id)
-    .sort((a, b) => {
-      // For Quadri (founder), prioritize featured posts first while maintaining chronological order
-      if (author.id === 'maruf-quadri') {
-        // Featured posts come first
-        if (a.featured && !b.featured) return -1;
-        if (!a.featured && b.featured) return 1;
-        // Within same featured status, sort by date (newer first)
-        return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-      }
-      // For all other authors, use standard chronological sort (newest first)
-      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-    });
+    .filter((post) => post.authorId === author.id)
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
   return {
     props: {
       author,
       posts: postsByAuthor,
     },
-    revalidate: 3600, // ISR: revalidate every hour
+    revalidate: 3600,
   };
 };

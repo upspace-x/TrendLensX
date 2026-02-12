@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Clock, User } from 'lucide-react';
 import { Post } from '@/types';
 import { formatDate, getCategoryColor } from '@/lib/utils';
+import { authors } from '@/data/authors';
 
 interface PostCardProps {
   post: Post;
@@ -10,6 +11,10 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post, featured = false }: PostCardProps) {
+  const author = authors.find(a => a.id === post.authorId);
+  
+  if (!author) return null;
+
   if (featured) {
     return (
       <article className="card group">
@@ -33,7 +38,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
               <div className="flex items-center space-x-4 text-sm text-gray-300">
                 <span className="flex items-center">
                   <User className="w-4 h-4 mr-1" />
-                  {post.author.name}
+                  {author.name}
                 </span>
                 <span className="flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
@@ -77,13 +82,13 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-2">
             <Image
-              src={post.author.avatar || '/images/authors/placeholder.png'}
-              alt={post.author.name || 'Author'}
+              src={author.avatar || '/images/authors/placeholder.png'}
+              alt={author.name || 'Author'}
               width={24}
               height={24}
               className="rounded-full"
             />
-            <span>{post.author.name}</span>
+            <span>{author.name}</span>
           </div>
           <span className="flex items-center">
             <Clock className="w-4 h-4 mr-1" />

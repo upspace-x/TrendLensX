@@ -12,6 +12,7 @@ import { getAllPosts, getPostBySlug } from '@/lib/mdxPosts';
 import { Post } from '@/types';
 import { formatDate, getCategoryColor } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
+import { authors } from '@/data/authors';
 
 interface PostPageProps {
   post: Post;
@@ -19,7 +20,10 @@ interface PostPageProps {
 }
 
 export default function PostPage({ post, mdxSource }: PostPageProps) {
+  const author = authors.find(a => a.id === post.authorId);
   const postUrl = `${SITE_CONFIG.url}/post/${post.slug}`;
+
+  if (!author) return null;
 
   return (
     <>
@@ -54,13 +58,13 @@ export default function PostPage({ post, mdxSource }: PostPageProps) {
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
                 <div className="flex items-center space-x-2">
                   <Image
-                    src={post.author.avatar || '/images/authors/placeholder.png'}
-                    alt={post.author.name || 'Author'}
+                    src={author.avatar || '/images/authors/placeholder.png'}
+                    alt={author.name || 'Author'}
                     width={40}
                     height={40}
                     className="rounded-full"
                   />
-                  <span className="font-medium text-gray-900">{post.author.name}</span>
+                  <span className="font-medium text-gray-900">{author.name}</span>
                 </div>
                 <span className="flex items-center">
                   <Calendar className="w-4 h-4 mr-1" />
@@ -103,11 +107,9 @@ export default function PostPage({ post, mdxSource }: PostPageProps) {
               ))}
             </div>
 
-            <AdBanner slot="post-bottom" className="mb-8" />
-
             <div className="border-t pt-8 mb-8">
               <h3 className="text-lg font-semibold mb-4">About the Author</h3>
-              <AuthorCard author={post.author} />
+              <AuthorCard author={author} />
             </div>
 
             <CommentSection postId={post.id} />

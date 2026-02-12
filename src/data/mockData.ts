@@ -1,4 +1,4 @@
-import { Author, Post, Category } from '@/types';
+import { Post, Category } from '@/types';
 
 export const categories: Category[] = [
   { id: '1', name: 'News', slug: 'news', description: 'Breaking news and current events', color: 'bg-red-500' },
@@ -14,70 +14,6 @@ export const categories: Category[] = [
 const getCategory = (slug: string): Category => {
   return categories.find(c => c.slug === slug) || categories[0];
 };
-
-export const authors: Author[] = [
-  {
-    id: 'maruf-quadri',
-    name: 'Quadri O. Maruf',
-    slug: 'maruf-quadri',
-    role: 'Founder & Editor-in-Chief',
-    bio: 'Quadri O. Maruf is the founder of TrendLensX, delivering clear insights on technology, global affairs, and emerging trends shaping the future.',
-    avatar: '/images/authors/maruf-quadri.png',
-    email: 'quadri@trendlensx.com',
-    social: {
-      twitter: 'https://x.com/marufquadri',
-      linkedin: 'https://linkedin.com/in/marufquadri',
-      website: 'https://trendlensx.vercel.app',
-    },
-    socials: {
-      twitter: 'https://x.com/marufquadri',
-      linkedin: 'https://linkedin.com/in/marufquadri',
-      website: 'https://trendlensx.vercel.app',
-    },
-  },
-  {
-    id: '1',
-    name: 'Sarah Johnson',
-    slug: 'sarah-johnson',
-    bio: 'Tech enthusiast and senior writer covering the latest in innovation and digital trends.',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
-    email: 'sarah@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/sarahjohnson',
-      linkedin: 'https://linkedin.com/in/sarahjohnson',
-    },
-  },
-  {
-    id: '2',
-    name: 'Michael Chen',
-    slug: 'michael-chen',
-    bio: 'Financial analyst with 10+ years of experience in market research and investment strategies.',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
-    email: 'michael@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/michaelchen',
-      linkedin: 'https://linkedin.com/in/michaelchen',
-    },
-  },
-  {
-    id: '3',
-    name: 'Emily Rodriguez',
-    slug: 'emily-rodriguez',
-    bio: 'Education specialist passionate about making learning accessible to everyone.',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop',
-    email: 'emily@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/emilyrodriguez',
-    },
-  },
-];
-
-export const authorMap: Record<string, Author> = authors.reduce((map, a) => {
-  map[a.id] = a;
-  map[a.slug] = a;
-  map[a.name.toLowerCase()] = a;
-  return map;
-}, {} as Record<string, Author>);
 
 export const posts: Post[] = [
   {
@@ -97,7 +33,7 @@ export const posts: Post[] = [
     <p>As we look ahead, the integration of AI into everyday applications will only accelerate, bringing both opportunities and challenges that society must address.</p>`,
     coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop',
     publishedAt: '2024-01-15T10:00:00Z',
-    author: authors[1],
+    authorId: 'sarah-johnson',
     category: getCategory('technology'),
     tags: ['AI', 'Technology', 'Innovation', 'Future'],
     readTime: 5,
@@ -118,7 +54,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop',
     publishedAt: '2024-01-14T09:00:00Z',
-    author: authors[2],
+    authorId: 'michael-chen',
     category: getCategory('finance'),
     tags: ['Finance', 'Markets', 'Economy', 'Investment'],
     readTime: 4,
@@ -140,7 +76,7 @@ export const posts: Post[] = [
     </ol>`,
     coverImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop',
     publishedAt: '2024-01-13T11:00:00Z',
-    author: authors[3],
+    authorId: 'emily-rodriguez',
     category: getCategory('scholarships'),
     tags: ['Scholarships', 'Education', 'Study Abroad', 'Funding'],
     readTime: 7,
@@ -162,7 +98,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop',
     publishedAt: '2024-01-12T14:00:00Z',
-    author: authors[1],
+    authorId: 'sarah-johnson',
     category: getCategory('jobs'),
     tags: ['Jobs', 'Remote Work', 'Tech', 'Career'],
     readTime: 5,
@@ -182,7 +118,7 @@ export const posts: Post[] = [
     </ul>`,
     coverImage: 'https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=800&h=400&fit=crop',
     publishedAt: '2024-01-11T08:00:00Z',
-    author: authors[2],
+    authorId: 'michael-chen',
     category: getCategory('news'),
     tags: ['News', 'Climate', 'Environment', 'Politics'],
     readTime: 4,
@@ -198,7 +134,7 @@ export const posts: Post[] = [
     <p>The competition promises intense action with top athletes competing for glory.</p>`,
     coverImage: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop',
     publishedAt: '2024-01-10T16:00:00Z',
-    author: authors[3],
+    authorId: 'emily-rodriguez',
     category: getCategory('sports'),
     tags: ['Sports', 'Championship', 'Finals', 'Competition'],
     readTime: 3,

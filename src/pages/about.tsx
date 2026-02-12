@@ -2,7 +2,7 @@ import Image from 'next/image';
 import SEOHead from '@/components/SEO/SEOHead';
 import AuthorCard from '@/components/Cards/AuthorCard';
 import Newsletter from '@/components/Sections/Newsletter';
-import { authors } from '@/data/mockData';
+import { authors } from '@/data/authors';
 import { SITE_CONFIG } from '@/lib/constants';
 import { Target, Users, Zap, Globe } from 'lucide-react';
 
@@ -13,6 +13,10 @@ export default function AboutPage() {
     { icon: Zap, title: 'Timeliness', description: 'Delivering breaking news and trends as they happen.' },
     { icon: Globe, title: 'Diversity', description: 'Covering topics from across the globe and all walks of life.' },
   ];
+
+  const sortedAuthors = [...authors].sort(
+    (a, b) => Number(b.isPrimary || false) - Number(a.isPrimary || false)
+  );
 
   return (
     <>
@@ -62,7 +66,7 @@ export default function AboutPage() {
         <div className="container-custom">
           <h2 className="section-heading text-center mb-12">Meet Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {authors.map((author) => (
+            {sortedAuthors.map((author) => (
               <AuthorCard key={author.id} author={author} />
             ))}
           </div>

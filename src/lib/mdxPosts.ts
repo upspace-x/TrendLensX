@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { Post, Author, Category } from '@/types';
-import { authors, categories, authorMap } from '@/data/mockData';
+import { authors } from '@/data/authors';
+import { categories } from '@/data/mockData';
 
 const postsDirectory = path.join(process.cwd(), 'content', 'posts');
 
@@ -19,35 +20,18 @@ interface PostFrontMatter {
   featured?: boolean;
 }
 
-function resolveAuthor(authorId?: string, authorName?: string): Author {
-  // Fallback author object (safe defaults)
-  const fallback: Author = {
-    id: 'unknown',
-    name: 'Guest Author',
-    slug: 'guest-author',
-    bio: '',
-    avatar: '/images/authors/placeholder.png',
-    social: {},
-  } as Author;
-
-  // Priority 1: Use authorId for O(1) direct lookup (preferred)
+function resolveAuthorId(authorId?: string, authorName?: string): string {
   if (authorId) {
-    const author = authorMap[authorId];
-    if (author) return author;
+    const author = authors.find(a => a.id === authorId);
+    if (author) return author.id;
   }
 
-  // Priority 2: Fallback to authorName for backward compatibility
   if (authorName) {
-    // Try authorMap by name (case-insensitive)
-    const byName = authorMap[authorName.toLowerCase()];
-    if (byName) return byName;
-
-    // Try authors array by name
     const found = authors.find((a) => a.name.toLowerCase() === authorName.toLowerCase());
-    if (found) return found;
+    if (found) return found.id;
   }
 
-  return fallback;
+  return 'maruf-o-quadri';
 }
 
 function getCategoryBySlug(slug: string): Category {
@@ -87,8 +71,7 @@ export function getAllPosts(): Post[] {
   const posts = mdxFiles
     .map((file) => {
       const { data, content } = parseMDXFile(file);
-      // Use authorId for O(1) lookup; fallback to author name for backward compatibility
-      const author = resolveAuthor(data.authorId, data.author);
+      const authorId = resolveAuthorId(data.authorId, data.author);
       const category = getCategoryBySlug(data.category);
       const cleaned = extractTextFromMDX(content);
       const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;
@@ -104,7 +87,7 @@ export function getAllPosts(): Post[] {
         content: content,
         coverImage: data.featuredImage || 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop',
         publishedAt: new Date(data.date).toISOString(),
-        author,
+        authorId,
         category,
         tags: data.tags || [],
         readTime,
@@ -130,8 +113,7 @@ export function getPostBySlug(slug: string): Post | null {
   }
 
   const { data, content } = parseMDXFile(filename);
-  // Use authorId for O(1) lookup; fallback to author name for backward compatibility
-  const author = resolveAuthor(data.authorId, data.author);
+  const authorId = resolveAuthorId(data.authorId, data.author);
   const category = getCategoryBySlug(data.category);
   const cleaned = extractTextFromMDX(content);
   const wordCount = cleaned ? cleaned.split(/\s+/).filter(Boolean).length : 0;
@@ -147,7 +129,7 @@ export function getPostBySlug(slug: string): Post | null {
     content: content,
     coverImage: data.featuredImage || 'https://images.unsplash.com/photo-1461896834934-ffe607ba8211?w=800&h=400&fit=crop',
     publishedAt: new Date(data.date).toISOString(),
-    author,
+    authorId,
     category,
     tags: data.tags || [],
     readTime,
