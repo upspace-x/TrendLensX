@@ -1,59 +1,60 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Twitter, Linkedin, Github, Globe } from 'lucide-react';
-import { Author } from '@/types/author';
+import { Author } from "@/types/author"
 
-interface AuthorCardProps {
-  author: Author;
-  showBio ? : boolean;
-}
-
-export default function AuthorCard({ author, showBio = true }: AuthorCardProps) {
-  const SocialIcon = ({
-    href,
-    children,
-    label
-  }: { href: string;children: React.ReactNode;label: string }) => (
-    <a
-      href={href}
-      className="relative text-gray-400 hover:text-primary-600 transition-colors group"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {children}
-      <span className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
-        {label}
-      </span>
-    </a>
-  );
-  
-  const socialLinks = [
-    author.twitter && { href: author.twitter, icon: <Twitter className="w-5 h-5" />, label: 'Twitter' },
-    author.linkedin && { href: author.linkedin, icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn' },
-    author.github && { href: author.github, icon: <Github className="w-5 h-5" />, label: 'GitHub' },
-    author.website && { href: author.website, icon: <Globe className="w-5 h-5" />, label: 'Website' },
-  ].filter(Boolean) as { href: string;icon: React.ReactNode;label: string } [];
-  
-  return (
-    <div className="card p-6 text-center">
-      <Image
-        src={author.image}
-        alt={author.name}
-        width={400}
-        height={400}
-        className="rounded-full object-cover mx-auto mb-4"
-      />
-      <Link href={`/author/${author.slug}`}>
-        <h3 className="font-heading font-semibold text-lg hover:text-primary-600 transition-colors">
-          {author.name}
-        </h3>
-      </Link>
-      {showBio && <p className="text-gray-600 text-sm mt-2 mb-4">{author.bio}</p>}
-      <div className="flex justify-center space-x-3">
-        {socialLinks.map((s, i) => (
-          <SocialIcon key={i} href={s.href} label={s.label}>{s.icon}</SocialIcon>
-        ))}
-      </div>
-    </div>
-  );
-}
+export const authors: Author[] = [
+  {
+    id: "maruf-quadri",
+    name: "Maruf O. Quadri",
+    slug: "maruf-o-quadri",
+    role: "Founder & Editor-in-Chief",
+    bio: "Tech analyst and crypto market researcher focused on digital economy insights and emerging technologies.",
+    image: "/images/authors/maruf-quadri.png",
+    social: {
+      twitter: "https://twitter.com/fake-maruf",
+      linkedin: "https://linkedin.com/in/fake-maruf",
+      github: "https://github.com/fake-maruf",
+      website: "https://marufquadri.com"
+    }
+  },
+  {
+    id: "sarah-johnson",
+    name: "Sarah Johnson",
+    slug: "sarah-johnson",
+    role: "Senior Technology Analyst",
+    bio: "Covers artificial intelligence, cybersecurity, and enterprise technology trends.",
+    image: "/images/authors/sarah-johnson.png",
+    social: {
+      twitter: "https://twitter.com/fake-sarah",
+      linkedin: "https://linkedin.com/in/fake-sarah",
+      github: "https://github.com/fake-sarah",
+      website: "https://sarahjohnson.com"
+    }
+  },
+  {
+    id: "michael-chen",
+    name: "Michael Chen",
+    slug: "michael-chen",
+    role: "Crypto Market Strategist",
+    bio: "Specializes in blockchain research, crypto market cycles, and digital asset forecasting.",
+    image: "/images/authors/michael-chen.png",
+    social: {
+      twitter: "https://twitter.com/fake-michael",
+      linkedin: "https://linkedin.com/in/fake-michael",
+      github: "https://github.com/fake-michael",
+      website: "https://michaelchen.com"
+    }
+  },
+  {
+    id: "emily-rodriguez",
+    name: "Emily Rodriguez",
+    slug: "emily-rodriguez",
+    role: "FinTech & Startup Reporter",
+    bio: "Reports on fintech innovation, venture capital movements, and startup ecosystems.",
+    image: "/images/authors/emily-rodriguez.png",
+    social: {
+      twitter: "https://twitter.com/fake-emily",
+      linkedin: "https://linkedin.com/in/fake-emily",
+      github: "https://github.com/fake-emily",
+      website: "https://emilyrodriguez.com"
+    }
+  }
+]

@@ -4,13 +4,16 @@ export const authors: Author[] = [
   {
     id: "maruf-quadri",
     name: "Maruf O. Quadri",
-    slug: "maruf-quadri",
+    slug: "maruf-o-quadri",
     role: "Founder & Editor-in-Chief",
     bio: "Tech analyst and crypto market researcher focused on digital economy insights and emerging technologies.",
     image: "/images/authors/maruf-quadri.png",
-    email: "maruf@example.com",
-    twitter: "https://twitter.com/marufquadri",
-    linkedin: "https://linkedin.com/in/marufquadri"
+    social: {
+      twitter: "https://twitter.com/fake-maruf",
+      linkedin: "https://linkedin.com/in/fake-maruf",
+      github: "https://github.com/fake-maruf",
+      website: "https://marufquadri.com"
+    }
   },
   {
     id: "sarah-johnson",
@@ -19,8 +22,12 @@ export const authors: Author[] = [
     role: "Senior Technology Analyst",
     bio: "Covers artificial intelligence, cybersecurity, and enterprise technology trends.",
     image: "/images/authors/sarah-johnson.png",
-    twitter: "https://twitter.com/sarahjohnson",
-    linkedin: "https://linkedin.com/in/sarahjohnson"
+    social: {
+      twitter: "https://twitter.com/fake-sarah",
+      linkedin: "https://linkedin.com/in/fake-sarah",
+      github: "https://github.com/fake-sarah",
+      website: "https://sarahjohnson.com"
+    }
   },
   {
     id: "michael-chen",
@@ -29,8 +36,12 @@ export const authors: Author[] = [
     role: "Crypto Market Strategist",
     bio: "Specializes in blockchain research, crypto market cycles, and digital asset forecasting.",
     image: "/images/authors/michael-chen.png",
-    twitter: "https://twitter.com/michaelchen",
-    linkedin: "https://linkedin.com/in/michaelchen"
+    social: {
+      twitter: "https://twitter.com/fake-michael",
+      linkedin: "https://linkedin.com/in/fake-michael",
+      github: "https://github.com/fake-michael",
+      website: "https://michaelchen.com"
+    }
   },
   {
     id: "emily-rodriguez",
@@ -39,7 +50,11 @@ export const authors: Author[] = [
     role: "FinTech & Startup Reporter",
     bio: "Reports on fintech innovation, venture capital movements, and startup ecosystems.",
     image: "/images/authors/emily-rodriguez.png",
-    twitter: "https://twitter.com/emilyrodriguez",
-    linkedin: "https://linkedin.com/in/emilyrodriguez"
+    social: {
+      twitter: "https://twitter.com/fake-emily",
+      linkedin: "https://linkedin.com/in/fake-emily",
+      github: "https://github.com/fake-emily",
+      website: "https://emilyrodriguez.com"
+    }
   }
 ]

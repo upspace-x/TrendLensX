@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Clock, User } from 'lucide-react';
-import { Twitter, Linkedin, Github, Globe } from 'lucide-react';
+import { Clock, User, Twitter, Linkedin, Github, Globe } from 'lucide-react';
 import { Post } from '@/types';
 import { formatDate, getCategoryColor } from '@/lib/utils';
 import { authors } from '@/data/authors';
@@ -33,12 +32,12 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
     </a>
   );
   
-  const socialLinks = [
-    author.twitter && { href: author.twitter, icon: <Twitter className="w-4 h-4" />, label: 'Twitter' },
-    author.linkedin && { href: author.linkedin, icon: <Linkedin className="w-4 h-4" />, label: 'LinkedIn' },
-    author.github && { href: author.github, icon: <Github className="w-4 h-4" />, label: 'GitHub' },
-    author.website && { href: author.website, icon: <Globe className="w-4 h-4" />, label: 'Website' },
-  ].filter(Boolean) as { href: string;icon: React.ReactNode;label: string } [];
+  const socialIcons = author.social || {
+    twitter: "https://twitter.com/fake",
+    linkedin: "https://linkedin.com",
+    github: "https://github.com",
+    website: "https://example.com"
+  };
   
   if (featured) {
     return (
@@ -64,7 +63,10 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
                 <span className="flex items-center space-x-1">
                   <User className="w-4 h-4" />
                   <span>{author.name}</span>
-                  {socialLinks.map((s, i) => <SocialIcon key={i} href={s.href} label={s.label}>{s.icon}</SocialIcon>)}
+                  {socialIcons.twitter && <SocialIcon href={socialIcons.twitter} label="Twitter"><Twitter className="w-4 h-4" /></SocialIcon>}
+                  {socialIcons.linkedin && <SocialIcon href={socialIcons.linkedin} label="LinkedIn"><Linkedin className="w-4 h-4" /></SocialIcon>}
+                  {socialIcons.github && <SocialIcon href={socialIcons.github} label="GitHub"><Github className="w-4 h-4" /></SocialIcon>}
+                  {socialIcons.website && <SocialIcon href={socialIcons.website} label="Website"><Globe className="w-4 h-4" /></SocialIcon>}
                 </span>
                 <span className="flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
@@ -115,7 +117,10 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
               className="rounded-full"
             />
             <span>{author.name}</span>
-            {socialLinks.map((s, i) => <SocialIcon key={i} href={s.href} label={s.label}>{s.icon}</SocialIcon>)}
+            {socialIcons.twitter && <SocialIcon href={socialIcons.twitter} label="Twitter"><Twitter className="w-4 h-4" /></SocialIcon>}
+            {socialIcons.linkedin && <SocialIcon href={socialIcons.linkedin} label="LinkedIn"><Linkedin className="w-4 h-4" /></SocialIcon>}
+            {socialIcons.github && <SocialIcon href={socialIcons.github} label="GitHub"><Github className="w-4 h-4" /></SocialIcon>}
+            {socialIcons.website && <SocialIcon href={socialIcons.website} label="Website"><Globe className="w-4 h-4" /></SocialIcon>}
           </div>
           <span className="flex items-center">
             <Clock className="w-4 h-4 mr-1" />
