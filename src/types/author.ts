@@ -5,7 +5,9 @@ export interface Author {
   role: string
   bio: string
   image: string
-  email?: string
-  twitter?: string
-  linkedin?: string
+  email ? : string
+  twitter ? : string
+  linkedin ? : string
+  github ? : string
+  website ? : string
 }

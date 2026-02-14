@@ -1,20 +1,45 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, User } from 'lucide-react';
+import { Twitter, Linkedin, Github, Globe } from 'lucide-react';
 import { Post } from '@/types';
 import { formatDate, getCategoryColor } from '@/lib/utils';
 import { authors } from '@/data/authors';
 
 interface PostCardProps {
   post: Post;
-  featured?: boolean;
+  featured ? : boolean;
 }
 
 export default function PostCard({ post, featured = false }: PostCardProps) {
   const author = authors.find(a => a.id === post.authorId);
-  
   if (!author) return null;
-
+  
+  const SocialIcon = ({
+    href,
+    children,
+    label
+  }: { href: string;children: React.ReactNode;label: string }) => (
+    <a
+      href={href}
+      className="relative text-gray-400 hover:text-primary-600 transition-colors group"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {children}
+      <span className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+        {label}
+      </span>
+    </a>
+  );
+  
+  const socialLinks = [
+    author.twitter && { href: author.twitter, icon: <Twitter className="w-4 h-4" />, label: 'Twitter' },
+    author.linkedin && { href: author.linkedin, icon: <Linkedin className="w-4 h-4" />, label: 'LinkedIn' },
+    author.github && { href: author.github, icon: <Github className="w-4 h-4" />, label: 'GitHub' },
+    author.website && { href: author.website, icon: <Globe className="w-4 h-4" />, label: 'Website' },
+  ].filter(Boolean) as { href: string;icon: React.ReactNode;label: string } [];
+  
   if (featured) {
     return (
       <article className="card group">
@@ -36,9 +61,10 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
               </h2>
               <p className="text-gray-200 mb-4 line-clamp-2">{post.excerpt}</p>
               <div className="flex items-center space-x-4 text-sm text-gray-300">
-                <span className="flex items-center">
-                  <User className="w-4 h-4 mr-1" />
-                  {author.name}
+                <span className="flex items-center space-x-1">
+                  <User className="w-4 h-4" />
+                  <span>{author.name}</span>
+                  {socialLinks.map((s, i) => <SocialIcon key={i} href={s.href} label={s.label}>{s.icon}</SocialIcon>)}
                 </span>
                 <span className="flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
@@ -51,7 +77,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
       </article>
     );
   }
-
+  
   return (
     <article className="card group">
       <Link href={`/post/${post.slug}`}>
@@ -82,13 +108,14 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-2">
             <Image
-              src={author.image || '/images/authors/placeholder.png'}
-              alt={author.name || 'Author'}
+              src={author.image}
+              alt={author.name}
               width={24}
               height={24}
               className="rounded-full"
             />
             <span>{author.name}</span>
+            {socialLinks.map((s, i) => <SocialIcon key={i} href={s.href} label={s.label}>{s.icon}</SocialIcon>)}
           </div>
           <span className="flex items-center">
             <Clock className="w-4 h-4 mr-1" />
