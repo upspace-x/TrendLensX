@@ -9,6 +9,9 @@ coverage/
 # Next.js
 .next/
 out/
+.vercel/
+.turbo/
+.cache/
 
 # Production
 build/
@@ -32,9 +35,6 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-
-# Vercel
-.vercel
 
 # TypeScript
 *.tsbuildinfo
