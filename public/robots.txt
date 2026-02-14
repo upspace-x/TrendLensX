@@ -8,7 +8,7 @@ Disallow: /admin
 Disallow: /api
 
 # Host
-Host: https://trendlensx.com
+Host: https://b69ddf89-d4ec-4a26-955d-09d529c3a809-00-u7vis4aq2q52.worf.replit.dev
 
 # Sitemaps
-Sitemap: https://trendlensx.com/sitemap.xml
+Sitemap: https://b69ddf89-d4ec-4a26-955d-09d529c3a809-00-u7vis4aq2q52.worf.replit.dev/sitemap.xml

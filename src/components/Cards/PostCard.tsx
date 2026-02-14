@@ -82,7 +82,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-2">
             <Image
-              src={author.avatar || '/images/authors/placeholder.png'}
+              src={author.image || '/images/authors/placeholder.png'}
               alt={author.name || 'Author'}
               width={24}
               height={24}

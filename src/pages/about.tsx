@@ -14,9 +14,7 @@ export default function AboutPage() {
     { icon: Globe, title: 'Diversity', description: 'Covering topics from across the globe and all walks of life.' },
   ];
 
-  const sortedAuthors = [...authors].sort(
-    (a, b) => Number(b.isPrimary || false) - Number(a.isPrimary || false)
-  );
+  const sortedAuthors = [...authors];
 
   return (
     <>
