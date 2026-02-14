@@ -31,7 +31,7 @@ function resolveAuthorId(authorId?: string, authorName?: string): string {
     if (found) return found.id;
   }
 
-  return 'maruf-o-quadri';
+  return 'maruf-quadri';
 }
 
 function getCategoryBySlug(slug: string): Category {

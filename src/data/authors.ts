@@ -1,54 +1,36 @@
-import { Author } from '@/types';
+import { Author } from "@/types/author"
 
 export const authors: Author[] = [
   {
-    id: 'maruf-o-quadri',
-    slug: 'maruf-o-quadri',
-    name: 'Maruf O. Quadri',
-    role: 'Founder & Editor-in-Chief',
-    bio: 'Quadri O. Maruf is the founder of TrendLensX, delivering clear insights on technology, global affairs, and emerging trends shaping the future.',
-    avatar: '/images/authors/maruf-quadri.png',
-    email: 'quadri@trendlensx.com',
-    isPrimary: true,
-    social: {
-      twitter: 'https://x.com/marufquadri',
-      linkedin: 'https://linkedin.com/in/marufquadri',
-      website: 'https://trendlensx.vercel.app',
-    },
+    id: "maruf-quadri",
+    name: "Maruf O. Quadri",
+    slug: "maruf-o-quadri",
+    role: "Founder & Editor-in-Chief",
+    bio: "Tech analyst and crypto market researcher focused on digital economy insights and emerging technologies.",
+    image: "/images/authors/maruf-quadri.png"
   },
   {
-    id: 'sarah-johnson',
-    slug: 'sarah-johnson',
-    name: 'Sarah Johnson',
-    bio: 'Tech enthusiast and senior writer covering the latest in innovation and digital trends.',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
-    email: 'sarah@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/sarahjohnson',
-      linkedin: 'https://linkedin.com/in/sarahjohnson',
-    },
+    id: "sarah-johnson",
+    name: "Sarah Johnson",
+    slug: "sarah-johnson",
+    role: "Senior Technology Analyst",
+    bio: "Covers artificial intelligence, cybersecurity, and enterprise technology trends.",
+    image: "/images/authors/sarah-johnson.png"
   },
   {
-    id: 'michael-chen',
-    slug: 'michael-chen',
-    name: 'Michael Chen',
-    bio: 'Financial analyst with 10+ years of experience in market research and investment strategies.',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
-    email: 'michael@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/michaelchen',
-      linkedin: 'https://linkedin.com/in/michaelchen',
-    },
+    id: "michael-chen",
+    name: "Michael Chen",
+    slug: "michael-chen",
+    role: "Crypto Market Strategist",
+    bio: "Specializes in blockchain research, crypto market cycles, and digital asset forecasting.",
+    image: "/images/authors/michael-chen.png"
   },
   {
-    id: 'emily-rodriguez',
-    slug: 'emily-rodriguez',
-    name: 'Emily Rodriguez',
-    bio: 'Education specialist passionate about making learning accessible to everyone.',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop',
-    email: 'emily@trendlensx.com',
-    social: {
-      twitter: 'https://twitter.com/emilyrodriguez',
-    },
-  },
-];
+    id: "emily-rodriguez",
+    name: "Emily Rodriguez",
+    slug: "emily-rodriguez",
+    role: "FinTech & Startup Reporter",
+    bio: "Reports on fintech innovation, venture capital movements, and startup ecosystems.",
+    image: "/images/authors/emily-rodriguez.png"
+  }
+]

@@ -12,11 +12,11 @@ export default function AuthorCard({ author, showBio = true }: AuthorCardProps) 
   return (
     <div className="card p-6 text-center">
       <Image
-        src={author.avatar || '/images/authors/maruf-quadri.png'}
+        src={author.image}
         alt={author.name}
-        width={80}
-        height={80}
-        className="rounded-full mx-auto mb-4"
+        width={400}
+        height={400}
+        className="rounded-full object-cover mx-auto mb-4"
       />
       <Link href={`/author/${author.slug}`}>
         <h3 className="font-heading font-semibold text-lg hover:text-primary-600 transition-colors">
@@ -27,24 +27,14 @@ export default function AuthorCard({ author, showBio = true }: AuthorCardProps) 
         <p className="text-gray-600 text-sm mt-2 mb-4">{author.bio}</p>
       )}
       <div className="flex justify-center space-x-3">
-        {author.social?.twitter && (
-          <a href={author.social.twitter} className="text-gray-400 hover:text-primary-600 transition-colors">
+        {author.twitter && (
+          <a href={author.twitter} className="text-gray-400 hover:text-primary-600 transition-colors">
             <Twitter className="w-5 h-5" />
           </a>
         )}
-        {author.social?.linkedin && (
-          <a href={author.social.linkedin} className="text-gray-400 hover:text-primary-600 transition-colors">
+        {author.linkedin && (
+          <a href={author.linkedin} className="text-gray-400 hover:text-primary-600 transition-colors">
             <Linkedin className="w-5 h-5" />
-          </a>
-        )}
-        {author.social?.github && (
-          <a href={author.social.github} className="text-gray-400 hover:text-primary-600 transition-colors">
-            <Github className="w-5 h-5" />
-          </a>
-        )}
-        {author.social?.website && (
-          <a href={author.social.website} className="text-gray-400 hover:text-primary-600 transition-colors">
-            <Globe className="w-5 h-5" />
           </a>
         )}
       </div>

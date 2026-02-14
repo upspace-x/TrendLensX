@@ -8,21 +8,15 @@ export interface Category {
 }
 
 export interface Author {
-  id: string;
-  name: string;
-  slug: string;
-  role?: string;
-  bio: string;
-  avatar: string;
-  email?: string;
-  social?: {
-    twitter?: string;
-    linkedin?: string;
-    facebook?: string;
-    instagram?: string;
-    website?: string;
-  };
-  isPrimary?: boolean;
+  id: string
+  name: string
+  slug: string
+  role: string
+  bio: string
+  image: string
+  email?: string
+  twitter?: string
+  linkedin?: string
 }
 
 export interface Post {
